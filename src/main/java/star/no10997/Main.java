@@ -22,8 +22,10 @@ public class Main {
 		draw(0, HEIGHT_SIZE, WIDTH_SIZE, n);
 
 
-		for(int i = 0; i < HEIGHT_SIZE; i++){
-			for(int j = 0; j < WIDTH_SIZE; j++){
+		for (int i = 0; i < HEIGHT_SIZE; i++) {
+			int last = WIDTH_SIZE - 1;
+			while (last >= 0 && arr[i][last] == ' ') last--; // 오른쪽 끝 공백 제거
+			for (int j = 0; j <= last; j++) {
 				System.out.print(arr[i][j]);
 			}
 			System.out.println();
