@@ -10,6 +10,13 @@ public class Main {
 		int WIDTH_SIZE = 4 * n - 3;
 		int HEIGHT_SIZE = 4 * n - 1;
 
+		// n == 1 은 별 하나만 출력
+		if (n == 1) {
+			System.out.println("*");
+			return;
+		}
+
+
 		arr = new char[HEIGHT_SIZE][WIDTH_SIZE];
 
 
