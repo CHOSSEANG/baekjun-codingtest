@@ -1,53 +1,61 @@
 package algorythm.no23882;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int length = sc.nextInt();
-		int num = sc.nextInt();
+	private static int N, K;
 
-		int[] arr = new int[length + 1]; // 1-indexed 배열 사용
-
-		//개행 처리용
-		String str1 = sc.nextLine();
-		// 실제 배열 값 받는 용도
-		String str2 = sc.nextLine();
-
-		for(int i = 1; i <= length; i++) {
-			arr[i] = Integer.parseInt(str2.split(" ")[i-1]);
-		}
-
-		int swapCount = 0;
-
-		// 선택 정렬 구현
-		for (int last = length; last >= 2; last--) {
-			int maxIndex = 1;
-			for( int i = 2; i <= last; i++ ) {
-				if( arr[i] > arr[maxIndex] ) {
-					maxIndex = i;
+	private void selectionSort(int[] A) { // A[1..N]을 오름차순 정렬한다.
+		int swapCnt = 0;
+		for (int last = N; last >= 2; last--) {
+			// A[1..last]중 가장 큰 수 A[i]를 찾는다
+			int max = Integer.MIN_VALUE;
+			int i = 0;
+			for (int idx = 1; idx <= last; idx++) {
+				if (max < A[idx]) {
+					max = A[idx];
+					i = idx;
 				}
 			}
 
-			if (maxIndex != last) {
-				// 교환 수행
-				int temp = arr[last];
-				arr[last] = arr[maxIndex];
-				arr[maxIndex] = temp;
+			// last와 i가 서로 다르면 A[last]와 A[i]를 교환
+			if (last != i) {
+				int tmp = A[last];
+				A[last] = A[i];
+				A[i] = tmp;
 
-				swapCount++;
-
-				// K번째 교환이라면 결과 출력
-				if (swapCount == num) {
-					break;
+				if (++swapCnt == K) {
+					StringBuilder sb = new StringBuilder();
+					for (int j = 1; j <= N; j++) {
+						sb.append(A[j]).append(' ');
+					}
+					System.out.println(sb);
+					return;
 				}
 			}
 		}
+		System.out.println(-1);
+	}
 
-		for (int i = 0; i < length; i++) {
-			System.out.print(arr[i] + " ");
+	private void solution() throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+
+		N = Integer.parseInt(st.nextToken());
+		K = Integer.parseInt(st.nextToken());
+
+		int[] arr = new int[N + 1];
+		st = new StringTokenizer(br.readLine());
+		for (int i = 1; i <= N; i++) {
+			arr[i] = Integer.parseInt(st.nextToken());
 		}
+
+		selectionSort(arr);
+	}
+
+	public static void main(String[] args) throws Exception {
+		new Main().solution();
 	}
 }
