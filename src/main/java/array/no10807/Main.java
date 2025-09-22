@@ -1,4 +1,4 @@
-package array;
+package array.no10807;
 
 import java.util.Scanner;
 
